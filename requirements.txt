@@ -1,0 +1,9 @@
+# Main
+python-telegram-bot
+
+# Service
+black
+isort
+pylint
+pytest
+pytest-cov

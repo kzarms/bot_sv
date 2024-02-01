@@ -1,0 +1,11 @@
+# Folders
+.venv/
+.pytest_cashe/
+__pycache__/
+
+# Files
+.DS_Store
+
+## Pytest files
+.coverage
+token.txt
