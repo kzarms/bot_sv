@@ -16,7 +16,7 @@ Parameters:
   VpcId:
     Description: ID of the existing VPC
     Type: String
-    Default: "vpc-0dcfe5e0569b91c58"
+    Default: "vpc-000000000"
 
 Resources:
   InstanceSecurityGroup:
