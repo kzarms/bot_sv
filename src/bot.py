@@ -62,8 +62,8 @@ REGISTRATIONS = {}
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 # region messages
-FEEDBACK_URL = "https://forms.yandex.ru/cloud/659e5ee4e010db88f63e4db0/"
-REPORT_URL = "https://docs.google.com/spreadsheets/d/1BKFfQUo2pu-Ksg6L9EXibRuasIjYLU84BBW00GanoHg/edit?pli=1#gid=508014521"
+FEEDBACK_URL = "https://forms.yandex.ru/cloud/123456/"
+REPORT_URL = "https://docs.google.com/spreadsheets/123456"
 
 FOOTER_SV = "\n\n/review показать запросы\n/stat показать статистику"
 FOOTER_USER = "\n\n/session запросить супервизию\n/help общая информация"
