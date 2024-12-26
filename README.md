@@ -43,12 +43,15 @@ To get the bot up and running, follow these steps:
 
 3. Install the required dependencies:
    ```bash
-   python3.12 -m venv .venv
-   . .venv/bin/activate
-   pip install -r requirements.txt
+   ./scripts/install.sh
    ```
 
-4. Set up your Telegram Bot token (see [Setup](#setup)).
+4. To test the bot basic functions run testing:
+   ```bash
+   ./scripts/test.sh
+   ```
+
+5. Set up your Telegram Bot token (see [Setup](#setup)).
 
 ---
 
