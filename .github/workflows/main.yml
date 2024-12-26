@@ -1,0 +1,54 @@
+---
+# This is an a CI pipeline
+name: main
+# Controls when the workflow run
+on:
+  push:
+    # Triggers the workflow for feature branches and main branch
+    branches:
+      - "bugfix/*"
+      - "feature/*"
+      - "main"
+# Run build, linting, security and unit testing in parallel,
+# and in the main branch only create a release
+jobs:
+  # Linting check
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: ./scripts/install.sh
+      - name: Linting
+        run: ./scripts/linting.sh
+  # Security check
+  Security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: ./scripts/install.sh
+      - name: Linting
+        run: ./scripts/security.sh
+  # Unit tests
+  UnitTest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install
+        run: ./scripts/install.sh
+      - name: Linting
+        run: ./scripts/test.sh
+
+# Deployment example
+  Deploy:
+    # Move forward only on main branch
+    if: ${{ github.ref == 'refs/heads/main' }}
+    # Move forward only if all jobs above are successed
+    needs: [Linting, Security, UnitTest]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy
+        run: echo "Deploying placeholder"
