@@ -1,0 +1,15 @@
+{
+    "0000000000": {
+        "FullName": "Таисия П",
+        "Sessions": 0,
+        "Requests": [],
+        "Total": 0
+    },
+    "1111111111": {
+        "FullName": "Лена З",
+        "Sessions": 0,
+        "Requests": [],
+        "Total": 0,
+        "UserName": "testuser"
+    }
+}
