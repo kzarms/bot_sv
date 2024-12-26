@@ -1,3 +1,4 @@
+"Telegram Bot"
 import csv
 import json
 import logging
@@ -29,28 +30,21 @@ if debug:
     )
     logging.info("Starting DEBUG mode!")
     SUPERVISORS = {
-        "6412574124": {
+        "11111111": {
             "FullName": "Kot",
             "Sessions": 2,
             "Requests": [],
             "Total": 0,
         },
-        "1706832328": {
+        "22222222": {
             "FullName": "Konstantin",
             "Sessions": 0,
             "Requests": [],
             "Total": 0,
             "UserName": "knstp",
         },
-        "1222374948": {
-            "FullName": "Лена Зарудаева",
-            "Sessions": 0,
-            "Requests": [],
-            "Total": 0,
-            "UserName": "helencoachde",
-        },
     }
-    SUPERVISORS_QEUE = ["6412574124", "1706832328", "1222374948"]
+    SUPERVISORS_QEUE = ["11111111", "22222222"]
 else:
     # Normal start
     SUPERVISORS = {}
@@ -181,8 +175,9 @@ REPORT_CONFIRMATIONS = [
 # endregion
 # region local functions
 def get_tocken() -> str:
+    "Function to get token value from the file"
     try:
-        with open("./token.txt", "r") as f:
+        with open("./token.txt", "r", encoding="utf-8") as f:
             return f.readline()
     except:
         logging.error("Problem with token")
@@ -190,14 +185,14 @@ def get_tocken() -> str:
 
 
 def add_sv_request(id, user_id, user_name) -> bool:
-    # Add request for supervisor
+    "Add request for supervisor"
     SUPERVISORS[id]["Requests"].append({"id": user_id, "FullName": user_name})
     logging.info(f"Added request from {user_name} for {SUPERVISORS[id]['FullName']}")
     return True
 
 
 def add_sv_session(supervisor) -> bool:
-    # This function adds session to the supervisor
+    "This function adds session to the supervisor"
     SUPERVISORS[supervisor]["Total"] += 1
     if SUPERVISORS[supervisor]["Sessions"] >= 2:
         logging.info(
@@ -205,14 +200,13 @@ def add_sv_session(supervisor) -> bool:
         )
         SUPERVISORS[supervisor]["Sessions"] = 0
         return True
-    else:
-        logging.info(f"Adding session for {supervisor}")
-        SUPERVISORS[supervisor]["Sessions"] += 1
+    logging.info(f"Adding session for {supervisor}")
+    SUPERVISORS[supervisor]["Sessions"] += 1
     return False
 
 
 def del_sv_request(id, user_id) -> bool:
-    # Add request for supervisor
+    "Add request for supervisor"
     temp_list = SUPERVISORS[id]["Requests"]
     for request in SUPERVISORS[id]["Requests"]:
         if request["id"] == user_id:
@@ -224,7 +218,7 @@ def del_sv_request(id, user_id) -> bool:
 
 
 def decline_sv_requests(id) -> bool:
-    # Add request for supervisor
+    "Add request for supervisor"
     temp_list = SUPERVISORS[id]["Requests"]
     SUPERVISORS[id]["Requests"] = []
     logging.info(
@@ -234,7 +228,7 @@ def decline_sv_requests(id) -> bool:
 
 
 def update_sv_list(supervisor):
-    """Update list of supervisors"""
+    "Update list of supervisors"
     if supervisor in SUPERVISORS_QEUE:
         logging.info(f"User {supervisor} is in the list")
         SUPERVISORS_QEUE.remove(supervisor)
@@ -244,17 +238,17 @@ def update_sv_list(supervisor):
 
 
 def save_to_local():
-    """Save data to local file"""
+    "Save data to local file"
     for file in FILES:
         file.upper()
         var = file[5:-5].upper()
         with open(file, "w", encoding="utf-8") as f:
             json.dump(globals()[var], f, ensure_ascii=False, indent=4)
-    logging.info(f"Saved to local files")
+    logging.info("Saved to local files")
 
 
 def load_from_local():
-    """Save data to local file"""
+    "Load data from the local file"
     logging.info("Read from local files")
     for file in FILES:
         var = file[5:-5].upper()
@@ -267,7 +261,7 @@ def load_from_local():
 
 
 def create_sv_list_from_db():
-    """Create list of supervisors"""
+    "Create list of supervisors"
     if len(SUPERVISORS_QEUE) == 0:
         for supervisor in SUPERVISORS:
             SUPERVISORS_QEUE.append(supervisor)
@@ -276,7 +270,7 @@ def create_sv_list_from_db():
 
 
 def gen_report() -> str:
-    # Generate csv file
+    "Generate csv file"
     current_datetime = datetime.now()
     file_name = f"{current_datetime.strftime('%Y-%m-%d_%H:%M:%S')}_report.csv"
     with open(file_name, "w", encoding="utf-8", newline="") as csvfile:
@@ -296,16 +290,19 @@ def gen_report() -> str:
 
 # endregion
 # region telegram functions
+# pylint: disable=W0613
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """General help message about commands"""
     await update.message.reply_text(MSG_HELP, parse_mode=ParseMode.HTML)
 
 
+# pylint: disable=W0613
 async def help_more(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Help message about more info"""
     await update.message.reply_text(MSG_HELP_MORE, parse_mode=ParseMode.HTML)
 
 
+# pylint: disable=W0613
 async def help_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Help message about next"""
     await update.message.reply_text(MSG_HELP_NEXT, parse_mode=ParseMode.HTML)
@@ -314,11 +311,11 @@ async def help_next(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def reg(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Register as Supervisor"""
     logging.info(f"Registration for {update.effective_user}")
-    message = f"Ваша заявка на регистрацию принята."
+    message = "Ваша заявка на регистрацию принята."
     await update.message.reply_text(message)
-    msg = f"Привет, Ух! В твой бот просится на регистрацию {update.effective_user.first_name}. Скажи мужу чтоб добавил {update.effective_user.id}. Чмок!"
+    msg = f"Привет, в твой бот просится на регистрацию {update.effective_user.first_name}. Скажи админу чтоб добавил {update.effective_user.id}."
     await context.bot.send_message(
-        chat_id="1222374948", text=msg, parse_mode=ParseMode.HTML
+        chat_id="999999999", text=msg, parse_mode=ParseMode.HTML
     )
 
 
@@ -337,7 +334,7 @@ async def stat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if supervisor not in SUPERVISORS:
         await update.message.reply_text(MSG_NON_SV)
         return
-    if supervisor == "1222374948":
+    if supervisor == "999999999":
         # Special report for Lena
         report_file = gen_report()
         message = random.choice(REPORT_CONFIRMATIONS)
@@ -383,7 +380,6 @@ async def session_sv_request(update: Update, context: ContextTypes.DEFAULT_TYPE)
     if answer == 99:
         await query.edit_message_text(text="Отменено")
         return ConversationHandler.END
-    # Todo: Add check if the ID in the requests
     # Request session for the SV
     id = SUPERVISORS_QEUE[answer]
     # Add user request into DB

@@ -40,7 +40,7 @@ jobs:
       - name: Linting
         run: ./scripts/test.sh
 
-# Deployment example
+  # Deployment example
   Deploy:
     # Move forward only on main branch
     if: ${{ github.ref == 'refs/heads/main' }}

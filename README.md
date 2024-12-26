@@ -1,4 +1,5 @@
 # Telegram Bot for Coaching Academy
+[![main](https://github.com/kzarms/bot_sv/actions/workflows/main.yml/badge.svg)](https://github.com/kzarms/bot_sv/actions/workflows/main.yml)
 
 Welcome to the **Coaching Academy Telegram Bot**! This [bot](https://t.me/casupvbot) simplifies planning and registration for supervision calls with mentors. It enables clients to schedule calls, communicate with mentors, and access help information seamlessly.
 
@@ -33,7 +34,7 @@ To get the bot up and running, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://https://github.com/kzarms/bot_sv.git
+   git clone https://github.com/kzarms/bot_sv.git
    ```
 
 2. Navigate to the project directory:
