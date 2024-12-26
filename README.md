@@ -61,12 +61,12 @@ To get the bot up and running, follow these steps:
 1. Create a Telegram bot using the [BotFather](https://core.telegram.org/bots#botfather).
    - Follow the instructions to obtain your bot token.
 
-2. Create a `token.txt` file in the project directory store the token inside:
+2. Create a `token.txt` file in the root directory store the token inside:
    ```env
    2052123456:AAXXXX
    ```
 
-3. Customize the mentors in the configuration file (`./db/supervisors.json`). Example:
+3. Customize the mentors in the configuration file `./db/supervisors.json`. Example:
    ```json
    {
        "000000000000": {
@@ -78,7 +78,7 @@ To get the bot up and running, follow these steps:
    }
    ```
 
-   `000000000000` is a telegram bot user ID
+   `000000000000` is a telegram user ID
 
 4. Run the bot options:
 
